@@ -6,6 +6,7 @@
   * [some Big Concepts You Need To Know](#some-big-concepts-you-need-to-know)
 * [Part II: HTML for Structure](#part-II:-html-for-structure)
   * [Creating a Simple Page](#creating-a-simple-page)
+  * [Marking Up Text](#marking-up-text)
 * [Further Reading](#further-reading)
 
 # Description
@@ -89,11 +90,18 @@ Basic HTML document structure
 
 </html>
 ```
-* `DOCTYPE` specifies that the document is written in HTML
-* There is a `head` and a `body`
-  * `head` is not rendered
-    * `meta` provides info about the document
-  * `body` is rendered 
+* `charset="utf-8"` defines the document as using unicode
+* What is the DOM (Document Object Model)
+  * The relationships created between the elements (exemplified through the HTML markup and nesting)
+* Block elements and inline elements are treated differently in the browser
+* Empty elements (ex: `<img />`) have no content
+* Attributes have syntax
+  * `attributename="value"`
+* Validatig a document means to check that the markup follows HTML standards
+## Marking Up Text
+
+
+
 
 # Further Reading
 ### Information Architecture
