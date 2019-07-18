@@ -99,8 +99,93 @@ Basic HTML document structure
   * `attributename="value"`
 * Validatig a document means to check that the markup follows HTML standards
 ## Marking Up Text
+* Assign an element to all the text in the document
+* Use `<hr/>` to indicate that one topic has completed and another one is beginning
+  * DON'T use `<hr/>` as a decorative line. Use CSS for that instead.
+* Lists
+  * For ordered lists, you can specify the list start at a number other than 1 using the `start` attribute (ex: `<ol start="17">`)
+  * Description lists are used for name value pairs (terms and definitions, questions and answers)
+  * `dl` element is allowed to contain only `dt` and `dd` elements
+  * `dt` elemnts can have multiple `dd` elements; and `dd` elements can contain any type of flow content
+```
+<p> We illustrate a description list below: </p>
+<dl>
+    <dt>This is a term</dt>
+    <dd>This is a definition</dd>
 
+    <dt>Another term </dt>
+    <dd>Another definition</dd>
+</dl>
+```
+```
+<dl>
+    <dt>This is a term</dt>
+    <dd>This is a definition</dd>
+    <dd>This is a second definition</dd>
 
+    <dt>Another term </dt>
+    <dd>Another definition</dd>
+    <dd><p>A second definition</p>
+        <p>This time with paragraphs</p>
+    </dd>
+</dl>
+```
+* Longer Quotations, use `<blockquote></blockquote>`
+  * Content within `<blockquotes>` should be contained in other elements
+```
+<blockquote>
+    <p>Notice that this text is in a paragraph element.</p>
+</blockquote>
+```
+* Preformatted text, `<pre></pre>` used when character spacing is semantically significant (ex: poems)
+* Figures `<figure></figure>` identifies content that illustrates or supports some point in the text
+  * `figure`s may contain images, video, code, text, or a table
+  * `<figcaption></figcaption>` allows you to add a caption either above or below the `figure`
+```
+<figure>
+    <pre>
+        <code>
+            body {
+                background-color: #000;
+                color: red;
+            }
+        </code>
+    </pre>
+</figure>
+
+<figcaption> An example of how to use figure and pre HTML elements. </figcaption>
+```
+* Organzing Page Content (main, header, footer, section, article, nav, aside, and address)
+  * Main content `<main></main>` - identifies the primary content of a page or application
+    * The content of a `main` element should be unique to that page. No sidebars, headers, etc. 
+    * Each page should have only one `main` and it should not be nested within an `article`, `aside`, `header`, `footer`, or `nav`
+    * `main` can and should include other elements within it.
+  * Headers and Footers `<header></header>` `<footer></footer>`
+    * headers and footers can include any elements 
+    * you cannot, however, next other `header`s or `footer`s within them
+    * you can create multiple `footer`s in a page, setting a `footer` for other sectioning elements (`section`, `article`, etc)
+  * Sections and Articles `<section></section>` `<article></article>`
+    * if the content is self contained use `article` instead of `section`
+    * if the grouping of the elements is simply to provide a hook for styling, use the generic `div` element
+  * Aside (sidebars) `<aside></aside>`- tangentially related material
+    * Can include other elements within (think of a side bar with links and lists)
+  * Navigation `<nav></nav>` - identifies primary navigation for a site
+    * Can include other elements within it (ex: containing a `ul` in `nav` element)
+  * Addresses `<address></address>` - used to create an area for contact info
+    * generally placed at the end of the document
+* Inline Elements
+  * For `abbr` element, the `title` attribute provides the unabbreviated version or in the case of acronyms, the full title
+    * `<abbr ttile="Points">pts.</abbr>`
+    * `<abbr title="American Type Founders">ATF</abbr>`
+![inLineElements](/data/inLineElements.png)
+* Generic Elements `<div></div>` and `<span></span>`
+  * `div` indicates a division of content, you may be able to use `section` now instead
+  * `span` same as `div` but used for phrases/words
+  * you can give these elements meaning/context with `id` and `class` attributes
+  * the `id` attribute - assigns a <em>unique</em> identifier to an element, the value of `id` must be used only once in the document
+  * the `class` attribute - classifies elements into conceptual groups, can be shared by multiple elements
+* Escape characters - using characters reserved for HTML (ex: <)
+  * use the named entity & lt; or its numeric equivalent & #060;
 
 
 # Further Reading
