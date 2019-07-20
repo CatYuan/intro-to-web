@@ -7,6 +7,8 @@
 * [Part II: HTML for Structure](#part-II:-html-for-structure)
   * [Creating a Simple Page](#creating-a-simple-page)
   * [Marking Up Text](#marking-up-text)
+  * [Adding Links](#adding-links)
+  * [Adding Images](#adding-images)
 * [Further Reading](#further-reading)
 
 # Description
@@ -186,6 +188,92 @@ Basic HTML document structure
   * the `class` attribute - classifies elements into conceptual groups, can be shared by multiple elements
 * Escape characters - using characters reserved for HTML (ex: <)
   * use the named entity & lt; or its numeric equivalent & #060;
+## Adding Links
+* To add a link, place content between `<a></a>` anchor tags. 
+  * `href` attribute allows you to specify which document to link to
+    * if Linking to a page on the web, you MUST provide the protocol (ex `http://`)
+* Relative pathnames
+  * You can have pathnames relative to the document that contains the link OR you can have pathnames that start at the root directory
+  * A root directory starts from the root directory by using `/` at the start of the pathname
+    * Because this type of link starts at the root, it works from any document on the server, regardless of which subdirectory it is located in
+* Linking to a specific point in a page
+  * This is known as linking to a document fragment.
+  * First assign the target element in the document a unique `id`. This is a Fragment Identifier 
+  * Then create a link using `<a href="#uniqueId">Link to unique element</a>`.
+* Linking to a fragment in another document
+  * Do this by adding the fragment name to the end of the URL
+  * `<a href="index.html#uniqueId">Link to a fragment in another document.</a>`  
+* Opening links in a new browser window
+  * use the `target` attribute in the anchor element. Set the value of target to `_blank` to open a new window upon click
+  * you can also name the target window such as "display" or "newWin" as long as the name does not start with an underscore. If you set `target="display"` for all your links, all the links will open up in the same window
+* Putting email in html allows spambots to target your email. Consider encrypting the address using JavaScript
+* Telephone Links - this allows mobile users to directly call
+  * Use the `tel: ` protocol (ex: `<a href="tel: +01-800-555-2121">Call us!</a>`) Be sure to include the international country code
+  * You could then use CSS to hide the link for non-mobile devices 
+## Adding Images
+* Images that appear as decoration (in the background of the header or a patterned border around an element) should be added through CSS
+* Images that are part of the content appear in HTML
+* The `src` and `alt` attributes are required for images
+  * `alt` provides alternate text to display if the image is not available
+  * the value of `alt` can be `null`
+* Take advantage of caching for less trafic for the server
+  * The browser downloads an image and stores it in the disk cahce. If an image is used repeatedly, be sure the `src` attribute for each image points to the same URL on the server, this allows the server to just use the cache.
+* SVG images - vector based images
+  * They are in text so they are faster to download than bitmapped images
+  * resizing of vectors allows for responsive layout
+  * Allows for animation
+  * You can easily add interactivity with JavaScript
+  * you may need to add server support for SVG images
+* SVGs can be embedded with the `img` element
+  * `<img src="/images/circle.svg" alt="">`
+  * If you do this, you cannot apply style to the SVG or add interactivity
+* Using the SVG inline
+  * Downside: inline SVG is not cached by the server
+```
+<p>This summer, try making pizza
+ 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" width="100" height="100">  
+    <circle fill="#D4AB00" cx="36" cy="36" r="36"/>  
+    <circle opacity=".7" fill="#FFF" stroke="#8A291C" cx="36.1" cy="35.9" r="31.2"/>  <circle fill="#A52C1B" cx="38.8" cy="13.5" r="4.8"/>  <circle fill="#A52C1B" cx="22.4" cy="20.9" r="4.8"/>  
+    <circle fill="#A52C1B" cx="32" cy="37.2" r="4.8"/>  <circle fill="#A52C1B" cx="16.6" cy="39.9" r="4.8"/>  
+    <circle fill="#A52C1B" cx="26.2" cy="53.3" r="4.8"/>  
+    <circle fill="#A52C1B" cx="42.5" cy="27.3" r="4.8"/>  
+    <circle fill="#A52C1B" cx="44.3" cy="55.2" r="4.8"/>  
+    <circle fill="#A52C1B" cx="54.7" cy="42.9" r="4.8"/>  
+    <circle fill="#A52C1B" cx="56" cy="28.3" r="4.8"/> 
+</svg>
+
+ on your grill.</p>
+```
+* Embedding SVG with the `<oblject></object>` element
+  * The `object` tag specifies the media type and points to the file using the `data` attribute
+  * If the `data` cannot be displayed any content within the `object` tags gets rendered
+```
+<object type="image/svg+xml" data="pizza.svg">
+    <img src="pizza.png" alt="pizza"/>
+</object>
+```
+  * HOWEVER, some browsers download both the SVG as well as the content. We can circumvent this by using a `div` and CSS within the `object` tag
+```
+<object type="image/svg+xml" data="pizza.svg">
+    <div style ="background-image: url(pizza.png); width 100px; height: 100px;" role="img" aria-label="pizza">
+</object>
+```
+* Using SVGs as background images with CSS
+  * Setting the background image of the header to an SVG
+```
+header {
+    background-image: url(/images/decorative.svg);
+}
+```
+* Responsive Images - you provide multiple images and the browser decides which is most appropriate
+  * `srcset` - attribute for `img` tag, it allows developers to specify a list of image source options for the browser to choose from
+    * The value of `srcset` is a comma-separated list of options, where each item in the list has the URL of an image and an `x-descriptor` that specifies the target device pixel ratio
+    * `<img src="image-URL" alt="" srcset="image-URL #x, image-URL #x"/>`
+    * The `src` attribute is still required to specify the default image for 1x pixel ratio
+    * HOWEVER, x descriptors select an image w/o regard for dimensions of the viewport. So x descriptors should be used for images that stay the same pixel dimensions regardless of the screen size (ex: logos, social media badges, etc)
+  * `w-descriptor` -  
+
 
 
 # Further Reading
