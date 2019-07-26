@@ -9,6 +9,9 @@
   * [Marking Up Text](#marking-up-text)
   * [Adding Links](#adding-links)
   * [Adding Images](#adding-images)
+  * [Table Markup](#table-markup)
+  * [Forms](#forms)
+  * [Embedded Media](#embedded-media)
 * [Further Reading](#further-reading)
 
 # Description
@@ -272,7 +275,257 @@ header {
     * `<img src="image-URL" alt="" srcset="image-URL #x, image-URL #x"/>`
     * The `src` attribute is still required to specify the default image for 1x pixel ratio
     * HOWEVER, x descriptors select an image w/o regard for dimensions of the viewport. So x descriptors should be used for images that stay the same pixel dimensions regardless of the screen size (ex: logos, social media badges, etc)
-  * `w-descriptor` -  
+  * Programming in response to viewport size
+    * `w-descriptor` attribute provides the pixel width of each image (ex: `srcset="strawberries-480.jpg 480w, strawberries-960.jpg 960w:`)
+    * `sizes` attribute tells the browser the approximate size that the image will appear in the page's layout, in terms of the % of the viewport width. `sizes` MUST be used if `w-descriptor` attribute is used.
+      * It is measured in `vw` units, viewport width units.
+```
+<img src="strawberries-640.jpg"
+    alt="baskets of ripe strawberries"
+    srcset="strawberries-480.jpg 480w,
+        strawberries-960.jpg 960w,
+        strawberries-1280.jpg 1280w,
+        strawberries-2400.jpg 2400w"
+    sizes="100vw"/>
+```
+  * In other cases, `sizes` attribute can be used to tell the browser to size images differently depending on the viewport width. There are then 2 conditions for using `sizes` in this manner
+  1. `media condition` describes a parameter, ussually the width of the viewport. This is placed in parentheses
+  2. the length that indicates the width that image will occupy in the layout if the first condition is met, measured in `vw` units.
+```
+<img src="strawberries-640.jpg" alt="baskets of ripe strawberries"
+    srcset="strawberries-240.jpg 240w,
+        strawberries-480.jpg 480w,
+        strawberries-672.jpg 672w"
+    sizes="(max-width: 480px) 100vw,
+        (max-width: 960px) 70vw,
+        240px"/>
+```
+* Art Direction - Allows you to display a cropped image on a smaller screen size.
+  * Done with the `<picture></picture>` element wrapped around `source` and `img` elements.
+  * The `img` attribute MUST be last.
+  * The `source` element can also take the `sizes` attribute
+```
+<picture>
+    <source media="(min-width: 1024px)" srcset="icecream-large.jpg"/>
+    <source media="(min-width: 760px)" srcset="icecream-medium.jpg"/>
+    <img src="icecream-small.jpg" alt="hand holding ice cream cone"/>
+</picture>
+```
+* It is also possible to use the `<picture></picture>` element to provide more efficient image formats (ex: WebP, JPEG XR) to browsers that support them.
+```
+<picture>
+    <source type="image/webp" srcset="pizza.webp"/>
+    <source type="image/jxr" srcset="pizza.jxr/>
+    <img src="pizza.jpg" alt=""/>
+</picture>
+```
+## Table Markup
+<table>
+    <tr>
+        <th>Table Header</th>
+        <th>Table Header</th>
+    </tr>
+    <tr>
+        <td>table data</td>
+        <td>table data</td>
+    </tr>
+</table>
+
+```
+<table>
+    <tr>
+        <th>Table Header</th>
+        <th>Table Header</th>
+    </tr>
+    <tr>
+        <td>table data</td>
+        <td>table data</td>
+    </tr>
+</table>
+```
+* The number of `<tr></tr>`tags denote the number of table rows
+* The number of columns is denoted by the number of `<th></th>` tags
+* `colspan` and `rowspan` attributes allow a `th` or `td` span multiple rows or columns
+  * the `rowspan` attribute should appear in the row of which the span starts
+<table>
+    <tr>
+        <th rowspan="2">Serving Size</th>
+        <td>Small (8oz.)</td>
+    </tr>
+    <tr>
+        <td>Medium (16oz.)</td>
+    </tr>
+</table>
+
+
+```
+<table>
+    <tr>
+        <th rowspan="2">Serving Size</th>
+        <td>Small (8oz.)</td>
+    </tr>
+    <tr>
+        <td>Medium (16oz.)</td>
+    </tr>
+</table>
+```
+
+* to improve accessibility - use `<caption></caption>` to add captions to tables
+  * The `caption` must be the first thing within the `table` element
+* Rows can be grouped together using `<thead></thead>`, `<tbody></tbody>`, and `<tfoot></tfoot>`
+* Cols can be grouped together using `<colgroup></colgroup>` tag immediately after the `caption`element. 
+  * `<colgroup>` elements are empty and are simply used to tell the browser the structure of the table
+  * the `span` attribute can be used within `colgroup` to indicate the number of columns in a `colgroup`
+  * Alternatively, you can identify individual columns within a `colgroup` using the `<col>` element and add a `class`
+```
+<table>
+    <caption></caption>
+    <colgroup></colgroup>
+    <colgroup>
+        <col class="start" />
+        <col class="end" />
+    </colgroup>
+    <colgroup>
+        <col class="start" />
+        <col class="end" />
+    </colgroup>
+    <!-- rest of the table.. -->
+</table>
+```
+## Forms
+* `<form></form>` element is used as a container for form control elements. Specific attributes to the `form`
+  * `action` - provides the location (URL) of the application or script that will process the form - ussually link to some script written in some scripting language (PHP, Ruby on Rails, Python, etc)
+  * `method` - indicates how the data will be sent to the server (indicated by `POST` or `GET`)
+    * `GET` - the data gets tacked into the URL
+    * `POST` - sends the data to the server separately. This is more secure
+* Different form control elements allow the user to enter info and choose between options
+  * `name` attribute - provides the variable name for the control. The name should correspond to the variable names that you will be using server-side
+* Text Entry Controls
+  * Single line text field - in the `input` element, set the `type` attribute to `"text"` (Ex: `<input type="text" />`)
+    * `value` attribute - specifies default text that appears in the field. If the user does not over write, this will be sent to the server
+    * `placeholder` attribute - provides text that appears in the field but is not sent to the server
+    * `maxlength`, `minlength` attribute - specifies number of characters a user can input
+  * Multiline text-entry field - use the `<textarea></textarea>` element
+    * the content between `textarea` tags appears in the text box when the form is desplayed
+    * `rows` and `cols` attributes can be used to specify the size of the `textarea`
+* `disabled` and `readonly` attributes can be applied to form control to prevent users from interacting with it. `disabled` forms are not sent to the server, but `readonly` ones are.
+  * `disabled` inputs can be toggled on and off w/ JavaScript
+* Specialized text-entry fields
+  * Password entry field - `<input type="password />` - This does not actually encrypt the data
+  * search - `<input type="search"/>`
+  * email - `<input type="email/>`
+  * telephone - `<input type="tel">`
+  * URL - `<input type="url">`
+* Drop down Suggestions can be provided using `<datalist></datalist>`
+  * within the `datalist` element, the drop down items are marked as `<option value="option name" />` elements, where the `value` attribute gives the name of the options
+  * within the `input` element, the `list` attribute should be used to associate the `input` with the respective `id` of the `datalist`
+  * Some browsers don't support datalist. JavaScript can be used to create a datalist.
+  * `datalist`provides options, but user can still type response
+
+```
+<input type="text" list="edulevel" name="education" />
+<datalist id="edulevel">
+    <option value="High School"/>
+    <option value="Bachelors Degree"/>
+</datalist>
+```
+
+* Buttons
+  * Submit button - `<input type="submit"/>` sends the data in the form to the server
+  * Reset button- `<input type="reset" />` resets the data in the form
+  * Image button - `<input type="image" />` replaces the submit button with an image of your choice
+  * Custom input button - `<input type="button">` these can be customized with JavaScript
+* Radio buttons - `<input type="radio" name="variable" value="value"/>`
+  * only one radio button within a group can be selected at once
+  * use the `name` attribute to group radio buttons
+  * the `checked` attribute checks the radio button when the form initially is loaded
+<form>
+<ul>
+    <li><input type="radio" name="yes_no" value="yes" checked /> Yes </li>
+    <li><input type="radio" name="yes_no" value="no"/> No</li>
+</ul>
+</form>
+
+```
+<form>
+<ul>
+    <li><input type="radio" name="yes_no" value="yes" checked /> Yes </li>
+    <li><input type="radio" name="yes_no" value="no"/> No</li>
+</ul>
+</form>
+```
+
+* Checkbox buttons -`<input type="checkbox" name="variable" value="value" />`
+  * multiple checkboxes can be checked
+  * a checkbox can also use the attribute `checked`
+* Menus - `<select></select>` - within the `select` element, `<option></option>` elements provide the options for the menu
+  * adding `selected` attribute to an option makes it preselected
+  * Drop-down menu - the default menu
+    * only one option can be picked
+    * you can choose to define the `value` using the attribute. Otherwise, the content in the `option` element will be sent as the `value`
+  * Scrolling menu - defined by adding the `size` attribute - this indicates the number of options shown
+    * Adding the `multiple` attribute allows user to choose multiple options
+* Menu options can be grouped together using `<optgroup label="label"/>`
+
+```
+<select name="icecream" size="4">
+    <optgroup label="traditional>
+        <option> vanilla </option>
+        <option> chocolate </option>
+    </optgroup>
+    <optgroup label="fancy">
+        <option> Praline </option>
+        <option> Birthday Cake </option>
+    </optgroup>
+</select>
+```
+* File Selection - `<input type="file"/>`
+  * in the `form` tag you must include the `enctype="multipart/form-data"`, encoding type, attribute
+* date and time controls - `<input type="date"/>`, `<input type="time"/>`
+* Numerical inputs - `<input type="number"/>`, `<input type="range"/>`
+  * Range input provides a slider, usually
+  * `min`, `max`, and `step` attributes can be added. Step defines the 'steps' or interval between each number
+* Color selector - `<input type="color" />`
+* Accessibility
+  * Labels - `<label></label>` are used to link the form control elements with the associated text. 
+    * `explicit association` matches the label with the control's `id` reference using the `for` attribute in the `label` element
+    * `implicit association` is done by wrappin the form element and the text in the `label` element w/o extra attributes
+```
+<ul>
+    <li><label>
+        <input type="checkbox" name="genre" value="punk" /> Punk
+    </label></li>
+</ul>
+```
+
+```
+<ul>
+    <li>
+        <label for="form-username"> Login account </label>
+        <input type="text" name="login" id="form-username" />
+    </li>
+</ul>
+```
+* fieldsets - `<fieldset></fieldset>` can also be used to logically group different parts of the form; however, styling may be more difficult due to sketchy browser support
+## Embedded Media
+* iframe - `<iframe src="URL to embedded content">...</iframe>` shows a window within the current window
+  * `height` and `width` attributes specify the size of the embedded window
+  * the content within the `iframe` element is shown in the case that the browser doesn't support `iframe`
+  * the `sandbox` attribute can be used to restrict iframes from having pop-ups
+* videos with `<video src="location of the vid" width="width" height="height" poster="some image"></video>`
+  * the `poster` attributes assigns the thumbnail of the video
+  * `autoplay` attribute can set the video to play automatically
+  * `controls` attribute prompts the browser for controls to pause/play etc the video
+  * you can provide multiple video options using `<source src="" type="video/mp4 or video/webm, etc"/>`, similarly to how images use `srcset` to provide multiple images.
+  * the content within the `video` element will load if the browser does not support `video`
+* Audio can be added using `<audio></audio>`
+  * Similarly you can add multiple audio files using the `<source src="" type="audio/mp3" />` element
+  * the content within the `audio` element will load if the browser does not support `audio`
+* `canvas` can be used to programatically add images and animations
+  * this is done using the `<canvas></canvas>` element
+  * the content within the `canvas` element will load if the browser does not support `canvas`
+
+
 
 
 
