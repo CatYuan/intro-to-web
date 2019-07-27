@@ -12,6 +12,9 @@
   * [Table Markup](#table-markup)
   * [Forms](#forms)
   * [Embedded Media](#embedded-media)
+* [Part III: CSS For Presentation](#part-III:-css-for-presentation)
+  * [Introducing Cascading Style Sheets](#introducing-cascading-style-sheets)
+  * [Formatting Text](#formatting-text)
 * [Further Reading](#further-reading)
 
 # Description
@@ -524,6 +527,113 @@ header {
 * `canvas` can be used to programatically add images and animations
   * this is done using the `<canvas></canvas>` element
   * the content within the `canvas` element will load if the browser does not support `canvas`
+# Part III: CSS for Presentation
+## Introducing Cascading Style Sheets
+* when styling elements, the style is also applied to the children elements (inheritance applies)
+* when two style rules disagree, the selector with higher specificity overrides
+  * a rule can be marked `!important`, this will override all other style rules
+* CSS Units
+  * `em` unit of measure based on the size of an 'm' in the current font (this changes depending on the size of the element you are applying it to)
+  * `rem` unit of measure based on the size of an 'm' in the `root` element of the HTML file (this is constant)
+  * `vw` - viewport width, equal to 1/100 of the current viewport width
+  * `vh` - viewport height, equal to 1/100 of the current viewport height
+   (Thus if you want an image to take up half the height of the screen, set the height to `50vh`)
+## Formatting Text
+* font name - `font-family` property
+  * Values: one or more font or generic font family names separated by commas
+  * fonts should be capitalized, font families can be lower case
+  * fonts w/ spaces in the name should be surrounded by ""
+```
+font-family: "Duru Sans", Verdana, sans-serif;
+```
+* the 5 font families
+  * Serif - has decorative strokes
+  * sans-serif - has straight strokes
+  * monospace - each letter has equal spacing
+  * cursive
+  * fantasy - purely decorative
+* You can include online fonts by embedding them in the `head` of the HTML document using the `<link />` element and including the link to the font file.
+```
+<head>
+    <link href="http://fonts.googleapis.com/css?family=Marko+One" 
+            rel="stylesheet" />
+    <style>
+        body {
+            font-family="Marko One", Georgia, serif;
+        }
+    </style>
+</head>
+```
+* Font size - `font-size` property specifies the size of the font
+  * values: length unit | percentage | small | medium | large | smaller | larger
+  * when using CSS length units (`em`, `rem`, %) be sure there is no space between the number and the unit
+  * relative values (`rem`, `em`, %) - are computed in relation to their parent's font size.
+* font weight - `font-weight` property makes text bold
+  * values: normal, bold, bolder
+* font style - `font-style` property italicizes text
+  * values: normal, italic, oblique (browsers render italic and oblique the same)
+* font Variant - `font-variant` property creates small caps
+  * values: normal, small-caps
+  * <p style="font-variant:small-caps;">small-caps</p>
+* font stretch - `font-stretch` property stretches or condenses the spacing between letters
+  * values: normal, condensed, expanded
+* `font` shorthand property
+  * must contain `font-size` and `font-family` values. All other potential values must appear before these two.
+```
+<style>
+    h1 { font: bold, 1.5em, Georgia, serif; }
+</style>
+```
+* Selector types
+  * Element selector `p { color: navy: }`
+  * Grouped selectors `p, ul, td, th { color: navy; }`
+  * Descendant selectors - target elements that are contained within (thus are descendants of) another element. 
+    * A space between element names indicates the second element is a descendant of the first
+    * `li em { color: green; }`
+  * ID selectors - select an element based on the id given to it - indicated using the '#'
+    * `#nav { color: white; }`
+  * Class Selectors - selects an element based on the class name - indicated using '.'
+    * placing an element in front of the '.class' indicates only those elements of the class that are found in that element (ex: `p.special {color: orange; }`)
+    * `.special { color: orange; }`
+* Text Color - `color` property allows you to change the color of the text
+  * values: color value (name or numeric)
+* line-height - `line-height` property defines the minimum distance from baseline to baseline in text
+  * values: number, length measurement, percentage
+  * providing a number acts as a scaling factor, multiplying by the current font size. It is inherited as a factor
+  * providing a length measurement, causes the value to be inherited as a calculated measurement. Percentages are inherited similarly
+* Indents - `text-indent` property indents the first line of the text
+  * Values: length measurement, percentage
+  * the percentage is calculated based on the width of the parent element
+  * negative measurements are permitted (this creates hanging indents)
+* horizontal text alignment - `text-align` property aligns the text
+  * Values: left, right, center, justify, start
+  * Start, starts at left for languages that read left to right; and starts at right for languages that read right to left
+* Underlines and decorations - `text-decoration` 
+  * values: none, underline, overline, line-through
+* Changing capitalization - `text-transform`
+  * values: none, capitalize, lowercase, uppercase
+  * capitalize, capitalizes each word
+* spaced out - `letter-spacing` property inserts space between letters and `word-spacing` property inserts space between words
+  * values: length measurement, normal
+* text shadow - `text-shadow` property adds a shadow
+  * values: 'horizontal offset' 'vertical offset' 'blur radius' 'color'
+* Bullet Points
+  * Choosing a marker - `list-style-type`
+    * Values: none, disk, circle, square, decimal-leading-zero, etc.
+    * the disk is the standard bullet point. Circle is an empty circle
+  * Marker position - `list-style-position` property allows you to place the bullet points inside or outside the content area box
+    * Values: inside, outside
+  * Make your own bullets - `list-style-image`
+    * Values: url(location), none
+    * you provide the location of the image that will become bullet points
+```
+ul {
+    list-style-type: disk;//this is set as backup
+    list-style-image: url(images/rainbow.gif);
+    list-style-position: outside;
+}
+```
+
 
 
 
