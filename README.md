@@ -15,6 +15,8 @@
 * [Part III: CSS For Presentation](#part-III:-css-for-presentation)
   * [Introducing Cascading Style Sheets](#introducing-cascading-style-sheets)
   * [Formatting Text](#formatting-text)
+  * [Colors and Backgrounds](#colors-and-backgrounds)
+  * [Thinking Inside The Box](#thinking-inside-the-box)
 * [Further Reading](#further-reading)
 
 # Description
@@ -633,8 +635,140 @@ ul {
     list-style-position: outside;
 }
 ```
+## Colors and Backgrounds
+* you can define colors with the `color` property
+  * Values: color names, RGB
+  * This changes the foreground color, the color of the text and border
+* `background-color` - changes the background color
+  * values: color value (name or numeric)
+* Clipping the background, the background painting area extends to the outer edge of the border as the default
+  * `background-clip` property
+    * values: border-box, padding-box, content-box
+<img src="data/border-box.png"/>
+* opacity - you can change the opacity of an element, (both text and background) using the `opacity` property
+  * values: number (from 0 to 1)
+* Pseudo-class selectors: indicated by the colon (:) and goes immediately after an element name (ex: `li:first-child`)
+  * Pseudo classes are applied as the result of the user interacting with the page
+  * `:link` - applies when the element is an unclicked link
+  * `:visited` - applies when the element has already been clicked
+  * `:focus` - applies when the element is selected and ready for input
+  * `:hover` - applies when the mouse pointer is over the element
+  * `:active` - applies when the element is in the process of being clicked or tapped
+  * required order for pseudo-classes: an order is requried because the last pseudo class overrides the previous ones
+    * link, visited, focus, hover, active
+* Pseudo-element selectors - indicated by a double colon (::) and goes immediately after an element name
+  * `::first-line` - applies to the first line of a paragraph
+  * `::first-letter` - applies to the first letter of a paragraph
+* Generate content with `::before` and `::after` pseudo element selectors
+  * `content` is a required property
+    * values for `content` property: `url(image.png)` and `"text content"`
+    * `url(image.png)` - allows you to generate an image
+    * `"text content"` - allows you to generate text
+```
+<head>
+    <style>
+        p.warning::before {
+            content: url(exclamation.png);
+        }
+        p.warning::after {
+            content: "Thank you";
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <p class=w"warning"> We are requried to warn you... </p>
+</body>
+```
+* Attribute Selectors - target elements based on attribute names or values
+  * `element[attribute]` - targets elements with a particular attribute regardless of its value
+  * `element[attribute="exact value"]` - targets elements with a particular attribute with this specific value
+* Background Images - allows you to place a background image in the back of an element.
+  * `background-image` - property adds a background image to any element
+    * values: url(location of image), none
+    * always specify a similar `background-color` in case the `background-image` fails to load - if both are specified, the `background-color` only loads if the `background-image` doesn't load
+  * `backgroud-repeat` - allows you to change the way the background repeats
+    * values: repeat, no-repeat, repeat-x, repeat-y, space, round
+    * `repeat-x` - restricts the image to tiling only horizontally
+    * `repeat-y` - restricts the image to tiling only vertically
+    * `space` - the browser calculates how many background images can fit across the width and height of the background area then adds equal amounts of space between each image
+    * `round` - the browser squishes the background image horizontally and vertically to fit in the background area an even number of times
+  * `background-position` - specifies the position of the origin image in the background
+    * values: length measurement, percentage, left, center, right, top, bottom
+  * `background-origin` - allows you to change the location of where the image is placed, similar to `background-clip`
+    * values: border-box, padding-box, content-box
+  * `background-attachment` - changes the way the background scrolls with the content
+    * values: scroll, fixed, local
+  * `background-size` - allows you to change the size of the image
+    * values: length, percentage, auto, cover, contain
+  * shorthand background property - `background`
+    * values: background-color background-image background-repeat background-attachment background-position background clip background-origin background-size
+    * these values can appear in any order
+  * multiple backgrounds - put these backgrounds in a list separated by commas 
+    * the image lsted last goes on the bottom, and each image prior in the list layers on top of it
+<img src="data/multiple-backgrounds.png"/>
+<img src="data/multiple-backgrounds-shorthand.png"/>
+* Gradients - can be applied anywhere an image may be applied (`background-image`, `border-image`, etc), where the `background-image` is the property and the gradient is the value
+  * `linear-gradient(deg, begining-color, optional-middle-colors, ending-color)`
+    * `deg` - the degree on which the gradient occurs (ex: 180 or 90)
+    * `background-image: linear-gradient(54deg, red, orange, yellow, green, blue 50%);`
+    * the `blue 50%` indicates that blue starts 50% of the way through the gradient
+  * `radial-gradient(begining-color, optional-middle-colors, end-color)`
+  * repeating gradients: `repeating-linear-gradient()`or `repeating-radial-gradient()`
+* External Style Sheets
+  * import CSS style sheets into HTML documents using `<link rel="stylesheet" href="stylesheet.css"/>`
+  * you can import CSS into CSS files using `@import url("stylesheet.css");`
+  * modular style sheets - allow you to keep styles that you frequently use (typography treatments, forms, layout rules, etc) in separate style sheets and then combine them using `@import`
+## Thinking Inside The Box
+<img src="data/box-model.png" />
 
-
+* Specifying box dimensions
+  * `width`: length, percentage, auto
+  * `height`: length, percentage, auto
+  * `box-sizing`: content-box, border-box
+    * `box-sizing` determines how the height and width are applied to the box
+    * `content-box` applies the height and width to the content and does not include the padding and borders
+    * `border-box` applies the height and width to the content as well as the borders and padding
+```
+/* This sets all the box-sizing in the page to border-box */
+html {
+  box-sizing: border-box;
+}
+* {
+  box-sizing: inherit;
+}
+```
+* `overflow` - handles overflow
+  * values: visible, hidden, scroll, auto
+* padding is the space between the content area and the border
+  * `padding-top`, `padding-right`, `padding-bottom`, `padding-left` properties
+    * values: length, percentage
+  * `padding` is the shorthand property
+    * values: length, percentage
+    * 4 values: top right bottom left
+    * 3 values: top left/right bottom
+    * 2 values: top/bottom left/right
+    * 1 value: applies to all sides
+* Borders
+  * `border-top-style`, `border-right-style`, `border-bottom-style`, `border-left-style`; shorthand property is `border-style`
+    * values: none, solid, hidden, dotted, dashed, double, groove, ridge, inset, outset
+  * `border-top-width`, `border-right-width`, `border-bottom-width`, `border-left-width`; shorthand property is `border-width`
+    * values: length, thin, medium, thick
+  * `border-top-color`, `border-right-color`, `border-bottom-color`, `border-left-color`; shorthand property is `border-color`
+    * values: color name/value, transparent
+  * `border`, `border-top`, `border-right`, `border-bottom`, `border-left` shorthand property; combines style, width and color
+    * values: border-style border-width border-color
+  * `border-radius` allows creation of rounded corners; this can also be altered to create elliptical corners
+    * values: length, percentage
+* Margins - an optional amount of space you can add to the outside of the border; prevents elements from bumping into one another or the edge of the browser
+  * `margin-top`, `margin-right`, `margin-bottom`, `margin-left`, `margin`
+    * values: length, percentage, auto
+    * be wary of collapsing margins (when margins overlap)
+    * you can also have negative margins
+* display types - `display`
+  * values: inline, block, run-in, flex, ..., none
+* `box-shadow` - property creates shadows around an element box, similar to `text-shadow`
+  * values: 'horizontal offset' 'vertical offset' 'blur distance' 'spread distance' color inset|none
 
 
 

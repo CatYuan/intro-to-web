@@ -1,13 +1,26 @@
 @charset "UTF-8";
+html {
+  box-sizing: border-box;
+}
+* {
+  box-sizing: inherit;
+}
+
 body {
   font-family: Georgia, serif;
   font-size: 100%;
   background-color: white;
+  margin: 0;
 }
 
 /* link styles */
 a:link, a:visited { color: #DC6903; }
 a:focus, a:hover, a:active { color: #F9AB33; }
+a {
+  text-decoration: none;
+  border-bottom: 1px dotted;
+  padding-bottom: .2em;
+}
 
 
 /* header styles */
@@ -16,10 +29,15 @@ header {
   background:  url(images/croissants_banner.jpg) no-repeat center center;
   background-size: cover; 
   text-align: center;
+  height: 15em;
 }
 header p {
   font-style: italic;
   font-size: 1.2em;
+  margin-top: -12px;
+}
+header h1 {
+  margin-top: 1.5em;
 }
 
 /* nav styles */
@@ -37,6 +55,10 @@ nav ul li {
   font-size: .8em;
   text-transform: uppercase;
   letter-spacing: .2em;
+  list-style: none;
+}
+nav ul {
+  margin: 0;
 }
 
 /* main "products" styles */
@@ -45,11 +67,19 @@ main {
   background-color: white;
   line-height: 1.8em;
   color: #555;
+  padding: 1em;
+  border: double 4px #EADDC4;
+  border-radius: 25px;
+  margin: 2.5%;
 }
 h3 {
   text-transform: uppercase;
   letter-spacing: .2em;
   color: #7A0002;
+  border-top: 1px solid;
+  border-left: 3px solid;
+  padding-left: 1em;
+  margin-top: 2.5em;
 }
 p.more {
   font-family: verdana, sans-serif;
@@ -61,12 +91,17 @@ p.more {
 aside {
   background: url(images/scallop.png) repeat-y left top;
   background-color: #F6F3ED;
+  padding: 1em;
+  padding-left: 45px;
+  border-top-right-radius: 25px;
+  margin: 1em, 2.5%, 0, 10%;
 }
 /* misc styles */
 footer {
   color: #EADDC4;
   text-align: center;
   font-size: .8em;
+  padding: 1em;
 }
 h2 {
   font-family: 'Stint Ultra Expanded', cursive;
