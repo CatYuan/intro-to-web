@@ -645,6 +645,7 @@ ul {
   * `background-clip` property
     * values: border-box, padding-box, content-box
 <img src="data/border-box.png"/>
+
 * opacity - you can change the opacity of an element, (both text and background) using the `opacity` property
   * values: number (from 0 to 1)
 * Pseudo-class selectors: indicated by the colon (:) and goes immediately after an element name (ex: `li:first-child`)
@@ -708,6 +709,7 @@ ul {
     * the image lsted last goes on the bottom, and each image prior in the list layers on top of it
 <img src="data/multiple-backgrounds.png"/>
 <img src="data/multiple-backgrounds-shorthand.png"/>
+
 * Gradients - can be applied anywhere an image may be applied (`background-image`, `border-image`, etc), where the `background-image` is the property and the gradient is the value
   * `linear-gradient(deg, begining-color, optional-middle-colors, ending-color)`
     * `deg` - the degree on which the gradient occurs (ex: 180 or 90)
