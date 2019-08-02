@@ -645,7 +645,6 @@ ul {
   * `background-clip` property
     * values: border-box, padding-box, content-box
 <img src="data/border-box.png"/>
-
 * opacity - you can change the opacity of an element, (both text and background) using the `opacity` property
   * values: number (from 0 to 1)
 * Pseudo-class selectors: indicated by the colon (:) and goes immediately after an element name (ex: `li:first-child`)
