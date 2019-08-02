@@ -644,7 +644,8 @@ ul {
 * Clipping the background, the background painting area extends to the outer edge of the border as the default
   * `background-clip` property
     * values: border-box, padding-box, content-box
-<img src="data/border-box.png"/>
+<img src="data/border-box.PNG"/>
+
 * opacity - you can change the opacity of an element, (both text and background) using the `opacity` property
   * values: number (from 0 to 1)
 * Pseudo-class selectors: indicated by the colon (:) and goes immediately after an element name (ex: `li:first-child`)
