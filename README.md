@@ -19,6 +19,8 @@
   * [Thinking Inside The Box](#thinking-inside-the-box)
   * [Floating and Positioning](#floating-and-positioning)
   * [Flexbox](#flexbox)
+  * [Grid](#grid)
+  * [Responsive Web Design](#responsive-web-design)
 * [Further Reading](#further-reading)
 
 # Description
@@ -835,6 +837,46 @@ html {
 * using margins to add space on the sides of flex items
 
 <img src="data/margins-flex.png" />
+
+* `flex` - property determines how items can grow or shrink and identifies a starting size
+  * values: none | 'flex-grow flex-shrink flex-basis'
+  * where the `flex-grow`, and `flex-shrink` properties are set to either 1 or 0 to turn them on or off respectively. 
+  * `flex-basis` property sets a starting dimension
+* shortcut values for `flex`
+  * `flex: integer` - short for `flex: integer 1 0px`; this gives each flex item a proportional amount of the left over white space
+* `order` - property allows you to change the order of the flex items
+  * values: integer
+  * you can input a negative integer
+## Grid
+* `display: grid` - allows you to declare a grid. All of the children elements become grid items.
+* `grid-template-rows` and `grid-template-columns` - properties allow you to specify the height/width of each row/column
+  * Values: none | list of track sizes and optional line names
+  * the number of track sizes you include indicate the number of rows/columns that there should be
+  * the grid lines get autmatically indexed for you (starting at 1), so you can access them using numbers (1, 3, -1, etc.)
+    * Fractional units (fr) - allow you to specify track sizes as proportions to other track sizes and the viewport size
+    * content based sizing - `min-content`, `max-content`
+    * `repeat(frequency, track sizes)` - property allows you to automate the creation of repeating track sizes
+* `grid-template-areas` - property allows you to name the areas instead of referring to them by lines
+  * values: none | series of area names
+* `grid` - shorthand property
+  * values: none | row info/column info
+* `grid-row`, `grid-column` - properties allow you to place items into the grid by indicating the lines which they start and end on
+  * values: start line / end line
+* `grid-area` - property allows you to place items into the grid by indicating the area name
+  * values: area name | row-start/column-start/row-end/column-end
+  * you can use `span integer` to as one of the row/column-start/end to indicate that the grid item should span `integer` row/columns
+* `order` - property allows you to change the order that the items appear in the grid
+  * values: integer
+* `z-index` - property influences the stacking order of items that overlap in the grid
+* aligning items in the grid
+  * `grid-gap` - property adjusts the spacing between rows and columns in the grid; value must be non-negative number
+    * values: grid-row-gap grid-column-gap
+  * `justify-self` and `align-self` - properties indicate how each item should deal with white space within each grid cell
+    * values: start | end | center | left | right | self-start | self-end | stretch | normal | auto
+  * `justify-items` and `align-items` - properties allow you to align all items in the grid; applies same value for `justify-self`/`align-self` to all items
+  * `justify-content` and `align-content` - properties specify how white space is dealt with in the case that the tracks do not fill the entire area of the grid container
+## Responsive Web Design
+
 
 
 
