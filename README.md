@@ -17,6 +17,8 @@
   * [Formatting Text](#formatting-text)
   * [Colors and Backgrounds](#colors-and-backgrounds)
   * [Thinking Inside The Box](#thinking-inside-the-box)
+  * [Floating and Positioning](#floating-and-positioning)
+  * [Flexbox](#flexbox)
 * [Further Reading](#further-reading)
 
 # Description
@@ -567,7 +569,7 @@ font-family: "Duru Sans", Verdana, sans-serif;
 </head>
 ```
 * Font size - `font-size` property specifies the size of the font
-  * values: length unit | percentage | small | medium | large | smaller | larger
+  * values: length unit  |  percentage  |  small  |  medium  |  large  |  smaller  |  larger
   * when using CSS length units (`em`, `rem`, %) be sure there is no space between the number and the unit
   * relative values (`rem`, `em`, %) - are computed in relation to their parent's font size.
 * font weight - `font-weight` property makes text bold
@@ -770,7 +772,70 @@ html {
 * display types - `display`
   * values: inline, block, run-in, flex, ..., none
 * `box-shadow` - property creates shadows around an element box, similar to `text-shadow`
-  * values: 'horizontal offset' 'vertical offset' 'blur distance' 'spread distance' color inset|none
+  * values: 'horizontal offset' 'vertical offset' 'blur distance' 'spread distance' color inset | none
+## Floating and Positioning
+* `float` - property moves an element as far as possible to the left or right
+  * values: left | right | none
+  * floats stay within the content area of the parent element; they do not float higher than the elements that come before it in the flow
+  * always provide a width for floated text elements and floated block elements
+* `clear` property allows the text wrapping to be turned on and off, allowing the following element to start below the float
+  * values: left | right | both | none
+  * `left` starts the element below any elements that have been floated to the left
+  * `right` starts the element below any elements that have been floated to the right
+  * `both` starts the element below any elements that have been floated to both the left and the right
+* When floating elements, the border/container of the element does not follow the floated element
+  * to solve this you can apply the "clearfix" technique
+```
+#container:after {
+    content:" ";
+    display: block;
+    clear: both;
+}
+```
+
+* CSS shapes can be used to wrap text to a specified shape
+  * `shape-outside` - property indicates what shape the text should wrap around
+    * values: none | circle() | ellipse() | polygon() | url()
+    * the parameters of the values indicate the radius, coordinates of the shape
+  * `shape-margin` - property indicates the margin between the shape and the text
+    * values: length | percentage
+<img src="data/css-shapes.png" />
+
+* `position` - property allows you to position elements on the page relative to the normal flow or removing them from the flow
+  * values: static | relative | absolute | fixed
+  * `static` - indicates the normal flow
+  * `relative` - moves the element box relative to its original position in the flow; however, the space that the element would have occupied in the normal flow is reserved
+  * `absolute` - removes elements from the flow and positions them with respect to the viewport or a containing element
+  * `fixed` - the element stays in one position even when the document scrolls; the element is positioned relative to the viewport
+  * `sticky` - combination of relative and fixed
+* `top`, `right`, `bottom`, `left` - properties indicate how much away from the specified top/bottom/etc the element should be positioned
+  * values: length | percentage | auto
+* you can create containing blocks to help position absolutely positioned elements by setting an element to `position: relative` and not indicating any `top`/`bottom`/etc properties
+* `z-index` - property allows you to control stacking order - when floating elements, they may overlap, this lets you control which is on top
+  * values: number | auto
+  * you can set the property to negative integers
+## Flexbox
+* set up a flexbox container by setting the CSS property `display: flex` to the flex container
+  * `flex-direction` - property allows you to specify the flow direction for the container
+    * values: row | column | row-reverse | column-reverse
+  * `flex-wrap` - property allows you to wrap onto multiple lines if need be
+    * values: nowrap | wrap | wrap-reverse
+  * `flex-flow` - shorthand property
+    * values: flex-direction flex-wrap
+* Controlling the alignment of the flex items in the container
+  * `justify-content` - property indicates alignment on the main axis and `align-items` - property indicates alignment on the cross axis
+    * values: flex-start | flex-end | center | space-between | space-around
+
+<img src="data/flexbox-alignment.png" />
+
+* `align-self` - property allows an item to override the cross-axis setting
+  * values: flex-start | flex-end | center | baseline | stretch
+* `align-content` - property indicates how multiple flex lines are spread out across the cross axis
+  * values: flex-start | flex-end | center | space-around | space-between | stretch
+* using margins to add space on the sides of flex items
+
+<img src="data/margins-flex.png" />
+
 
 
 
