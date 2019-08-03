@@ -21,6 +21,12 @@
   * [Flexbox](#flexbox)
   * [Grid](#grid)
   * [Responsive Web Design](#responsive-web-design)
+  * [Transitions](#transitions)
+  * [Transforms](#transforms)
+  * [Styling Tables](#styling-tables)
+  * [Reset and Normalize CSS](#reset-and-normalize-css)
+  * [Modern Web Dev](#modern-web-dev)
+* [Javascript for Behavior](#Javascript-for-behavior)
 * [Further Reading](#further-reading)
 
 # Description
@@ -876,8 +882,77 @@ html {
   * `justify-items` and `align-items` - properties allow you to align all items in the grid; applies same value for `justify-self`/`align-self` to all items
   * `justify-content` and `align-content` - properties specify how white space is dealt with in the case that the tracks do not fill the entire area of the grid container
 ## Responsive Web Design
+* compore components to responsive web design
+  1. a flexible grid
+  2. flexible images
+  3. CSS media queries
+* Setting the viewport, resizes the viewport to the width of the screen
+```
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+```
 
+* CSS media queries - `@media type and (feature: value) {/* styles for browsers that meet this criteria */}`
+  * media types: `all`, `print`, `screen`, `speech`
+  * media feature queries: `width`, `height`, `orientation`, `aspect-ratio`, `pointer`, `hover`
+  * you can use media queries within a style sheet and to link to external style sheets
+```
+<head>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel=stylesheet" href="2col-styles.css" media="screen and (min-width:1024px)" />
+</head>
+```
 
+* breakpoints - the point at which a media query introduces a style change
+  * you can set breakpoints based on pixels or `em`s
+  * em-based breakpoints allow you to adapt the styles if the user enlarges their text (an em is based on the base font size for the document, when it is used in the media query; this is ussually 16 pixels)
+* the ideal line length is 45 - 75 characters including spaces
+* Responsive layouts
+<img src="data/responsive-layouts.png" />
+
+## Transitions
+* `transition-property` - identifies the CSS property that is changing and that you want to transition smoothly
+  * values: property-name | all | none
+* `transition-duration` - specifies the amount of time the transition should take; a popular time is 0.2s
+  * values: time (seconds s, or miliseconds ms)
+* `transition-timing-function` - indicates the manner in which the transition accelerates
+  * values: ease | linear | ease-in | ease-out | ease-in-out | step-start | step-end | steps | cubic-bezier(#,#,#,#)
+  * `ease` - starts slow, accerlates quickly and then slows at the end
+  * `ease-in` - starts slow, then speeds up
+  * `ease-out` - starts fast then slows down
+* `transition-delay` - delays the start of the animation by a specified time
+  * values: time
+* `transition` - shorthand property
+  * values: transition-property transition-duration, transition-timing-function transition-delay
+## Transforms
+* `transform` - property allows you to rotate, relocate, resize, skew HTML elements
+  * values: rotate() | rotateX() | rotateY() | rotateZ() | rotate3d() | translate() | scale() | skew() | none
+  * `rotate(degree)` - allows you to rotate the element, you can put negative degrees
+    * `tranform-origin: vertical-offset horizontal-offset` - property indicates from what point the element should be rotated from; the offset is from the top left
+  * `translate(translateX, translateY)` - renders the element in a new location
+  * `scale(scaleX, scaleY)` - indicates how much to scale the image by; if only one number is provided, both X and Y are scaled by that much
+  * `skew(skewX, skewY)` - property makes the element slanty; parameters must be in degrees
+* 3d transforms also exist
+## Styling Tables
+* `border-collapse` - indicates how borders between table cells should be dispalyed (collapsed into a single border, or remain two separate borders)
+  * values: separate | collapse
+* `border-spacing` - property specifies the space between the cell borders
+  * values: horizontal-length vertical-length
+* `empty-cells` - indicates if empty cells should be displayed
+  * values: show | hide
+* `caption-side` - indicates where the caption is placed
+  * values: top | bottom
+* `table-layout` - indicates howw the width of the table should be calculated
+  * values: auto | fixed
+  * `auto` - bases the width of the table on the minimum width of the contents of the table
+  * `fixed` - bases the table width on the `width` value provided for the table, columns, or cells
+## Reset and Normalize CSS
+* CSS reset overrides all user agent styles to create a neutral starting point
+* Normalize.css - this is a newer approach, provides a reasonable starting point
+* However, the browser default styles work fine for many web developers as well
+## Modern Web Dev
+* Preprocessers reduce redundant syntax (Ex: SCSS)
+* Build tools (grunt and gulp) allow you to automate repetitive tasks
+# Javascript for Behavior
 
 
 
