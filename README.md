@@ -27,6 +27,8 @@
   * [Reset and Normalize CSS](#reset-and-normalize-css)
   * [Modern Web Dev](#modern-web-dev)
 * [Javascript for Behavior](#Javascript-for-behavior)
+  * [Intro to Javascript](#intro-to-javascript)
+  * [The Document Object Model](#document-object-model)
 * [Further Reading](#further-reading)
 
 # Description
@@ -953,7 +955,95 @@ html {
 * Preprocessers reduce redundant syntax (Ex: SCSS)
 * Build tools (grunt and gulp) allow you to automate repetitive tasks
 # Javascript for Behavior
+## Intro to Javascript
+* JavaScript lets you add interactivity to a web page
+* to add an external script use `<script src="my_script.js"></script>`
+  * place the script in the head if the script needs to do something before the body completely loads
+  * else place the script before the end of the body
+* variables in javascript are global unless they are created with `var` or `let`; javascript is untyped
+  * almost always initaliaze/declare new variables using `let`
+* comparisons in javascript
+  * use `===` to ensure that two variables are the same type and they are equal
+* native functions - there are many predefined functions, but here are a few common ones
+  * alert(), confirm(), prompty() - trigger browser-level dialog boxes
+  * Date() - returns the current date and time
+  * parseInt("123") - returns the parameter as an int
+  * setTimeout(functionName, 5000) - the function runs after 5000 miliseconds
+* The browser object - `window` - allows you to use js to interact with the window
+  * `event` - property represents the state of an event
+  * `history` - property contains the URLs the the user visited within a browser window
+  * close() - method closes the window
+  * confirm() - method displays a dialog box w/ a message and OK and Cancel buttons 
+* An event is an action that can be detected with JavaScript, this allows you to tie script to events on the page
 
+<img src="data/js-events.png" />
+
+* `addEventListener("event", function)` - allows you to apply event handlers to items within the page
+  * `window.addEventListener("click", myFunction);`
+  * notice that the "on" is omitted from the event handler
+  * it can also be used with anonymous functions `window.addEventListener("click", function(e) { /* code goes here */ });`
+## Document Object Model
+* the DOM is a collection of nodes
+  * element nodes
+  * attribute nodes
+  * text nodes
+* Accessing DOM Nodes - `document.someMethod()`
+  * `getElementsByTagName("css-tag")` - method allows you to access elements by the tag
+    * `var paragraphs = document.getElementsByTagName("p");`
+    * returns a nodeList containing all elenets with the specified tag
+    * nodeLists are similar to array and are indexed starting from 0
+  * `getElementById("id")` - method allows you to access elements by ID
+    * `var photo = document.getElementById("lead-photo");`
+  * `getElementsByClassName("class-name")` - method allows you to access elements by the class attributes
+    * `var firstCol = document.getElementByClassName("column-a")`
+    * returns a nodeList 
+  * `querySelectorAll("css-style-selector")` - method allows you to access nodes of the DOM based on a CSS style selector
+    * `var sidebarPara = document.querySelectorAll(".sidebar p");`
+    * returns a nodeList
+  * `getAttribute("attribute")` - accesses the attribute attached to an element node
+    * `var bigImageSrc = document.getElementById("lead-image").getAttribute("src");`
+* Manipulating Nodes - once you've accessed a node, you can manipulate those elements, their attributes, and the contents
+* `setAttribute("attribute", "newValue")` - allows you to alter the attribute
+```
+var image = document.getElementById("lead-image");
+image.setAttribute("src", "gutair.jpg");
+```
+
+* `innerHTML` - is a property that allows you to alter the text and markup inside an element
+```
+var introDiv = document.getElementsByClassName("intro");
+introDiv[0].innerHTML = "<p> intro text </p>";
+```
+
+* `style` - property that allows you to alter (add/modify/remove) CSS style from an element
+  * property names that are hyphenated in CSS, become camel case in JavaScript (ex: background-color becomes backgroundColor)
+```
+document.getElementById("intro").style.color = "orange";
+```
+
+* Adding and Removing Elements
+  * `createElement("element-tag")` - this creates an element but does not add it to the document; the element remains purely in memory
+  * `createTextNode("text you want to write here")` - enteres text into an existing or created element
+  * `appendChild( node-to-add-to-the-DOM )` - the method is called on the existing element that will be the parent to the node entered as the parameter
+  * `insertBefore( node-to-add, element-to-insert-before )` - the method is called on the parent element to the node-to-add
+  * `replaceChild( new-child, replaced-node)` - the method is called on the parent element
+  * `removeChild(node-to-remove)` - the method is called on the parent of the node-to-remove
+```
+<div id="our-div"></div>
+
+<!-- We want to add a paragraph to #our-div -->
+
+<style>
+    var ourDiv = document.getElementById("our-div");
+    var newPara = document.createElement("p");
+    var text = document.createTextNode("This is the new paragraph");
+
+    newPara.appendChild(text);
+    ourDiv.appendChild(newPara);
+</style>
+```
+
+* Polyfills normalize differing behavior from browser to browser; it is mostly used to make old browsers recognize new HTML5 and CSS3 features
 
 
 
