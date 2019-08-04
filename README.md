@@ -26,7 +26,7 @@
   * [Styling Tables](#styling-tables)
   * [Reset and Normalize CSS](#reset-and-normalize-css)
   * [Modern Web Dev](#modern-web-dev)
-* [Javascript for Behavior](#Javascript-for-behavior)
+* [Part IV: Javascript for Behavior](#Part-IV:-Javascript-for-behavior)
   * [Intro to Javascript](#intro-to-javascript)
   * [The Document Object Model](#document-object-model)
 * [Further Reading](#further-reading)
@@ -954,7 +954,7 @@ html {
 ## Modern Web Dev
 * Preprocessers reduce redundant syntax (Ex: SCSS)
 * Build tools (grunt and gulp) allow you to automate repetitive tasks
-# Javascript for Behavior
+# Part IV; Javascript for Behavior
 ## Intro to Javascript
 * JavaScript lets you add interactivity to a web page
 * to add an external script use `<script src="my_script.js"></script>`
